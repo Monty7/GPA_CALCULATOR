@@ -26,33 +26,72 @@
        var totalAllCredits = 0;
        var totalAllQualityPoints = 0;
     
-       totalAllQualityPoints = calculatePointsCredits($allQualityPoints, totalAllQualityPoints);
-       totalAllCredits = calculatePointsCredits($allCredits, totalAllCredits);
+       totalAllQualityPoints = calculatePoints($allQualityPoints, totalAllQualityPoints);
+       totalAllCredits = calculateCredits($allCredits, totalAllCredits);
     
        $('#newCumulativeCredits').text(totalAllCredits);  
        $('#newCumulativeQualityPoints').text(totalAllQualityPoints);
     
        overallGPA();
     }
+
+    function calculatePoints($pointsArr, total){
+
+      $pointsArr.each(function(index, value){// looping through all quality or credits
+          value = parseFloat($(value).text());
+        
+          total += value; 
+          //debugger;
+      });
+      return total;
+    }
+
+    function calculateCredits($creditsArr, total){
+      $creditsArr.each(function(index, value){// looping through all quality or credits
+        
+          value = parseInt($(value).val());
+         if(value){
+          total += value;
+         }
+          
+        })
+        
+       
+          //debugger;
     
+      return total;
+    }
+
     function calculatePointsCredits($pointsOrCredits, total){
+      //total value should always initally be 0
+      console.log($pointsOrCredits)
       $pointsOrCredits.each(function(index, value){// looping through all quality or credits
-    
-          if($(value).is('input') || $(value).is('select')){
+         
+          if($(value).is('select') || $(value).is('input')){
+          
+           console.log($(value));
             value = parseFloat($(value).val());
-          }else{
+          }else{ //$(value).is('input') || 
+          //console.log($(value));  //It is only pulling the points and not the credits because the else block is 
+          //grabbing the rest of the values that are
+          //not inputs or select types
+          
             value = parseFloat($(value).text());
+            
           }
+          
             total += value; 
+            //debugger;
         });
         return total;
       }
     
     //Quality points for calculation of rows
     function totalQualityPointsPerRow(gpaOrLetGrade, credits) {
-      console.log(credits);
+     
       var result = credits * gpaOrLetGrade;
       if(isNaN(result)){
+        console.log()
         return 0;
       }
       return result;
@@ -66,19 +105,19 @@
     }
     function computeGradeNum(input){ //Grade to point value system
       var gradenum = 0;
-      var thegrade=input;
-      if (thegrade==="A" || thegrade==="a") {gradenum=4;}
-      else if (thegrade==="B") {gradenum=3;}
-      else if (thegrade==="C") {gradenum=2;}
-      else if (thegrade==="D") {gradenum=1;}
-      else if (thegrade==="B+") {gradenum=3.3;}
-      else if (thegrade==="C+") {gradenum=2.3;}
-      else if (thegrade==="D+") {gradenum=1.3;}
-      else if (thegrade==="A-") {gradenum=3.7;}
-      else if (thegrade==="B-") {gradenum=2.7;}
-      else if (thegrade==="C-") {gradenum=1.7;}
-      else if (thegrade==="D-") {gradenum=.7;}
-      else if (thegrade==="E") {gradenum=0;}
+      var thegrade = input;
+      if (thegrade === "A" || thegrade === "a") {gradenum = 4;}
+      else if (thegrade === "B") {gradenum = 3;}
+      else if (thegrade === "C") {gradenum = 2;}
+      else if (thegrade === "D") {gradenum = 1;}
+      else if (thegrade === "B+") {gradenum = 3.3;}
+      else if (thegrade === "C+") {gradenum = 2.3;}
+      else if (thegrade === "D+") {gradenum = 1.3;}
+      else if (thegrade === "A-") {gradenum = 3.7;}
+      else if (thegrade === "B-") {gradenum = 2.7;}
+      else if (thegrade === "C-") {gradenum = 1.7;}
+      else if (thegrade === "D-") {gradenum = .7;}
+      else if (thegrade === "E") {gradenum = 0;}
       
       return gradenum;
          }
