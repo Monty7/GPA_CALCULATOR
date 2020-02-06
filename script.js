@@ -55,54 +55,29 @@
          }
           
         })
-        
-       
-          //debugger;
-    
+
       return total;
     }
 
-    function calculatePointsCredits($pointsOrCredits, total){
-      //total value should always initally be 0
-      console.log($pointsOrCredits)
-      $pointsOrCredits.each(function(index, value){// looping through all quality or credits
-         
-          if($(value).is('select') || $(value).is('input')){
-          
-           console.log($(value));
-            value = parseFloat($(value).val());
-          }else{ //$(value).is('input') || 
-          //console.log($(value));  //It is only pulling the points and not the credits because the else block is 
-          //grabbing the rest of the values that are
-          //not inputs or select types
-          
-            value = parseFloat($(value).text());
-            
-          }
-          
-            total += value; 
-            //debugger;
-        });
-        return total;
-      }
     
     //Quality points for calculation of rows
     function totalQualityPointsPerRow(gpaOrLetGrade, credits) {
-     
-      var result = credits * gpaOrLetGrade;
-      if(isNaN(result)){
-        console.log()
-        return 0;
+      var result = 0;
+   //  console.log(gpaOrLetGrade, credits);
+      if(!isNaN(gpaOrLetGrade)){
+        result = credits * gpaOrLetGrade;
       }
+
       return result;
     }
+
     function overallGPA(){  //GPA calculated
       var overallCredits = parseFloat($('#newCumulativeCredits').text(), 10);
       var overallPoints = parseFloat($('#newCumulativeQualityPoints').text(), 10);
-      var overall =  overallPoints / overallCredits;
-      
+      var overall =  overallPoints / overallCredits || 0;
       $('#newCumulativeGpa').text(overall.toFixed(2));
     }
+
     function computeGradeNum(input){ //Grade to point value system
       var gradenum = 0;
       var thegrade = input;
