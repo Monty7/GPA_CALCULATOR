@@ -36,23 +36,19 @@
     }
 
     function calculatePoints($pointsArr, total){
-
-      $pointsArr.each(function(index, value){// looping through all quality or credits
+      $pointsArr.each(function(index, value){// looping through all quality points
           value = parseFloat($(value).text());
-        
-          total += value; 
-          //debugger;
+          
+          total += value || 0; //adding all quality points
       });
       return total;
     }
 
     function calculateCredits($creditsArr, total){
-      $creditsArr.each(function(index, value){// looping through all quality or credits
+      $creditsArr.each(function(index, value){// looping through all credits
         
           value = parseInt($(value).val());
-         if(value){
-          total += value;
-         }
+          total += value || 0; 
           
         })
 
@@ -62,13 +58,8 @@
     
     //Quality points for calculation of rows
     function totalQualityPointsPerRow(gpaOrLetGrade, credits) {
-      var result = 0;
-   //  console.log(gpaOrLetGrade, credits);
-      if(!isNaN(gpaOrLetGrade)){
-        result = credits * gpaOrLetGrade;
-      }
-
-      return result;
+      var result = credits * gpaOrLetGrade || 0;  //defaults to zero if NaN
+      return result.toFixed(2);
     }
 
     function overallGPA(){  //GPA calculated
